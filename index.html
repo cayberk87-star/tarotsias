@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarotsias - Ruhunla Kucaklaş </title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #f0d47a;
+    --gold-pale: #f7e9b8;
+    --navy: #07071a;
+    --cream: #f5f0e8;
+    --cream-muted: #c8bfa8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--navy);
+    color: var(--cream);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.8;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.52; filter: brightness(0.95); }
+    50% { opacity: 1; filter: brightness(1.28); }
+  }
+
+  @keyframes star-drift {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-14px, 18px, 0) scale(1.03); }
+    100% { transform: translate3d(10px, -12px, 0) scale(1); }
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -28px;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(240,212,122,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(240,212,122,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 70% 40%, rgba(240,212,122,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 75%, rgba(240,212,122,0.5) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 25% 45%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 88%, rgba(240,212,122,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 95% 30%, rgba(240,212,122,0.6) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+    animation:
+      twinkle 5.5s ease-in-out infinite,
+      star-drift 30s ease-in-out infinite alternate;
+    will-change: transform, opacity, filter;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(42,21,96,0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 80% 70%, rgba(61,32,128,0.35) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(7,7,26,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.28);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+  }
+
+  .nav-links button {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--cream-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    padding: 0.5rem 0.9rem;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links button::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%; right: 50%;
+    height: 2px;
+    background: var(--gold);
+    transition: left 0.25s, right 0.25s;
+  }
+
+  .nav-links button:hover { color: var(--gold-light); }
+  .nav-links button.active { color: var(--gold-light); }
+  .nav-links button.active::after { left: 0.6rem; right: 0.6rem; }
+
+  .instagram-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    color: var(--gold-light);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 4px;
+    background: rgba(201,168,76,0.06);
+    text-decoration: none;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .instagram-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(201,168,76,0.55);
+    box-shadow: 0 0 16px rgba(201,168,76,0.18);
+  }
+
+  .instagram-link svg {
+    width: 19px;
+    height: 19px;
+    display: block;
+  }
+
+  .page {
+    display: none;
+    position: relative;
+    z-index: 1;
+    padding-top: 60px;
+    min-height: 100vh;
+    animation: pagein 0.4s ease;
+  }
+  .page.active { display: block; }
+
+  @keyframes pagein {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-page {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+  }
+
+  .moon-anim {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(240,212,122,0.5));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  h1.hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 5vw, 4rem);
+    color: var(--gold-pale);
+    background: linear-gradient(180deg, #fff7cf 0%, #f0d47a 34%, #c9a84c 62%, #8f6d1f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.2;
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.04em;
+    filter: drop-shadow(0 0 18px rgba(240,212,122,0.24)) drop-shadow(0 8px 24px rgba(0,0,0,0.45));
+    position: relative;
+  }
+
+  h1.hero-title::after {
+    content: 'Tarotsias';
+    position: absolute;
+    inset: 0;
+    color: rgba(255,247,207,0.16);
+    text-shadow: 0 0 30px rgba(240,212,122,0.45);
+    z-index: -1;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.78rem, 1.6vw, 1rem);
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem auto 1.5rem;
+    width: 320px;
+    max-width: 100%;
+  }
+  .hero-divider span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .hero-divider em { color: var(--gold); font-style: normal; }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--cream-muted);
+    max-width: 520px;
+    font-style: italic;
+    line-height: 1.9;
+    margin-bottom: 1.4rem;
+  }
+
+  .hours-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--gold-pale);
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 4px;
+    background: rgba(201,168,76,0.06);
+    padding: 0.7rem 1rem;
+    margin-bottom: 2.2rem;
+    box-shadow: 0 0 18px rgba(201,168,76,0.08);
+  }
+
+  .hours-badge strong {
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  #gunun-karti-alani {
+    background: rgba(17,17,42,0.6);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  #kart-cek-btn,
+  #kart-tekrar-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-pale);
+    background: linear-gradient(145deg, rgba(201,168,76,0.2), rgba(201,168,76,0.1));
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+
+  #kart-tekrar-btn {
+    margin-top: 1.2rem;
+    font-size: 0.68rem;
+    padding: 0.65rem 1.1rem;
+  }
+
+  #kart-cek-btn:hover,
+  #kart-tekrar-btn:hover {
+    background: linear-gradient(145deg, rgba(201,168,76,0.3), rgba(201,168,76,0.2));
+    box-shadow: 0 0 15px rgba(201,168,76,0.3);
+    transform: translateY(-2px);
+  }
+
+  .kart-cerceve {
+    font-size: 4rem;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(240,212,122,0.5));
+    margin-bottom: 1rem;
+  }
+
+  #kart-isim {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
+    color: var(--gold-light);
+    margin-bottom: 0.75rem;
+  }
+
+  #kart-mesaj {
+    color: var(--cream-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  #kart-sonuc.revealed {
+    animation: pagein 0.5s ease;
+  }
+
+  .quick-nav {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 1rem;
+    max-width: 1160px;
+    width: 100%;
+  }
+
+  .qn-card {
+    background: linear-gradient(145deg, rgba(17,17,42,0.9), rgba(25,15,65,0.7));
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 4px;
+    padding: 1.5rem 0.75rem;
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .qn-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .qn-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(201,168,76,0.45);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 20px rgba(201,168,76,0.07);
+  }
+
+  .qn-card:hover::before { opacity: 1; }
+
+  .qn-icon { font-size: 1.8rem; display: block; margin-bottom: 0.65rem; filter: drop-shadow(0 0 8px rgba(240,212,122,0.4)); }
+  .qn-label { font-family: 'Cinzel', serif; font-size: 0.66rem; letter-spacing: 0.08em; color: var(--gold-light); text-transform: uppercase; }
+
+  .page-hero{padding:4rem 2rem 3rem;text-align:center;border-bottom:1px solid rgba(201,168,76,.1)}.page-icon{font-size:3rem;display:block;margin-bottom:1.25rem;animation:pulse-glow 4s ease-in-out infinite}@keyframes pulse-glow{0%,100%{filter:drop-shadow(0 0 12px rgba(201,168,76,.3))}50%{filter:drop-shadow(0 0 28px rgba(201,168,76,.7))}}.page-label{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem}h2.page-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.5rem, 3.5vw, 2.6rem);color:var(--gold-pale);font-weight:400;margin-bottom:1rem;text-shadow:0 0 40px rgba(201,168,76,.25)}.page-intro{color:var(--cream-muted);font-style:italic;max-width:580px;margin:0 auto;font-size:1.05rem}.content-body{padding:3rem 2rem 5rem;max-width:860px;margin:0 auto}.back-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:var(--gold);background:0 0;border:1px solid rgba(201,168,76,.25);border-radius:3px;padding:.45rem 1rem;cursor:pointer;text-transform:uppercase;transition:background .2s,border-color .2s;margin-bottom:2.5rem}.back-btn:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.5)}.section-heading{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:.5rem}h3.sub-title{font-family:'Cinzel Decorative',serif;font-size:1.45rem;color:var(--gold-pale);font-weight:400;margin-bottom:1.75rem}.step-list{list-style:none;display:flex;flex-direction:column;gap:1.25rem}.step-item{display:grid;grid-template-columns:54px 1fr;gap:1.5rem;align-items:start;background:linear-gradient(145deg, rgba(17,17,42,0.8), rgba(25,15,65,0.5));border:1px solid rgba(201,168,76,.13);border-radius:4px;padding:1.6rem;transition:border-color .25s,transform .25s}.step-item:hover{border-color:rgba(201,168,76,.3);transform:translateX(4px)}.step-num{width:54px;height:54px;border:1px solid rgba(201,168,76,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:1rem;color:var(--gold);flex-shrink:0;background:rgba(201,168,76,.06)}.step-content h3{font-family:'Cinzel',serif;font-size:.97rem;color:var(--gold-light);letter-spacing:.06em;margin-bottom:.4rem}.step-content p{font-size:.95rem;color:var(--cream-muted);line-height:1.85}.info-box{background:linear-gradient(135deg, rgba(42,21,96,0.4), rgba(17,17,42,0.6));border:1px solid rgba(201,168,76,.2);border-left:3px solid var(--gold);border-radius:4px;padding:1.6rem 1.8rem;margin:2.5rem 0;font-size:.96rem;color:var(--cream-muted);line-height:1.85}.info-box strong{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;color:var(--gold);display:block;margin-bottom:.5rem;text-transform:uppercase}.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:2rem}.tip-card{background:linear-gradient(145deg, rgba(17,17,42,0.9), rgba(25,15,65,0.6));border:1px solid rgba(201,168,76,.14);border-radius:4px;padding:1.6rem;transition:border-color .25s,transform .25s}.tip-card:hover{border-color:rgba(201,168,76,.35);transform:translateY(-3px)}.tip-card .t-icon{font-size:1.5rem;margin-bottom:.7rem;display:block}.tip-card h4{font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.08em;color:var(--gold-light);margin-bottom:.45rem}.tip-card p{font-size:.9rem;color:var(--cream-muted);line-height:1.72}.moon-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem;margin-top:2rem}.moon-card{background:linear-gradient(145deg, rgba(17,17,42,0.9), rgba(25,15,65,0.6));border:1px solid rgba(201,168,76,.14);border-radius:4px;padding:1.8rem 1.4rem;text-align:center;transition:border-color .25s,transform .25s}.moon-card:hover{border-color:rgba(201,168,76,.4);transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.4)}.moon-card .m-glyph{font-size:2.3rem;display:block;margin-bottom:.7rem}.moon-card .m-name{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.13em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:.55rem}.moon-card p{font-size:.9rem;color:var(--cream-muted);line-height:1.68}.gold-rule{width:100px;height:1px;background:linear-gradient(90deg, transparent, var(--gold), transparent);margin:2.5rem auto}
+
+  footer{border-top:1px solid rgba(201,168,76,.12);padding:2.5rem 2rem;text-align:center;color:var(--cream-muted);font-size:.88rem;position:relative;z-index:1}footer span{font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:1rem;display:block;margin-bottom:.4rem}footer p{opacity:.55;font-style:italic}.footer-social{margin-top:1rem;display:inline-flex;align-items:center;gap:.6rem;color:var(--cream-muted);text-decoration:none;font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;transition:color .25s}.footer-social:hover{color:var(--gold-light)}.footer-social .instagram-link{display:inline-flex;width:34px;height:34px;margin-bottom:0;color:var(--gold-light)}
+
+  @media (max-width: 1050px) {
+    .quick-nav { grid-template-columns: repeat(4, 1fr); }
+    .nav-links button { padding: 0.5rem 0.55rem; font-size: 0.58rem; letter-spacing: 0.06em; }
+  }
+
+  @media (max-width: 760px) {
+    nav { padding: 0 1rem; }
+    .menu-toggle { display: inline-flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: rgba(7,7,26,0.97);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 0.6rem 1rem 1rem;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links button {
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 0.5rem;
+    }
+    .nav-links .instagram-link {
+      width: 100%;
+      justify-content: flex-start;
+      padding: 0.65rem 0.5rem;
+      gap: 0.6rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      background: none;
+    }
+    .nav-links .instagram-link::after {
+      content: 'Instagram';
+    }
+    .nav-links button.active::after { left: 0.5rem; right: auto; width: 42px; }
+    .quick-nav { grid-template-columns: repeat(2, 1fr); }
+    .step-item { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 440px) {
+    .quick-nav { grid-template-columns: 1fr; }
+    .nav-logo { font-size: 0.76rem; }
+    #gunun-karti-alani { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-logo" type="button">✦ Tarotsias ✦</button>
+  <button class="menu-toggle" type="button" aria-label="Menüyü aç veya kapat" aria-expanded="false">☰</button>
+  <ul class="nav-links" id="nav-links">
+    <li><button onclick="showPage('anlamlar', this)" data-page="anlamlar">Kart Anlamları</button></li>
+    <li><button onclick="showPage('acilimlar', this)" data-page="acilimlar">Açılımlar</button></li>
+    <li><button onclick="showPage('temizleme', this)" data-page="temizleme">Temizleme</button></li>
+    <li><button onclick="showPage('saklama', this)" data-page="saklama">Saklama</button></li>
+    <li><button onclick="showPage('enerjilendirme', this)" data-page="enerjilendirme">Enerjilendirme</button></li>
+    <li><button onclick="showPage('karistirma', this)" data-page="karistirma">Karıştırma</button></li>
+    <li><button onclick="showPage('burclar', this)" data-page="burclar">Burçlar</button></li>
+    <li><button onclick="showPage('ay', this)" data-page="ay">Ay Fazları</button></li>
+    <li><a class="instagram-link" href="https://www.instagram.com/tarotsias/" target="_blank" rel="noopener noreferrer" aria-label="Instagram sayfasını aç">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="2.8" width="18.4" height="18.4" rx="5.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.3" cy="6.7" r="0.8" fill="currentColor" stroke="none"></circle></svg>
+    </a></li>
+  </ul>
+</nav>
+
+<div class="page active" id="page-anasayfa">
+  <div class="hero-page">
+    <div class="moon-anim">🌙</div>
+    <p class="eyebrow">Ruhunla Kucaklaş</p>
+    <h1 class="hero-title">Tarotsias</h1>
+    <p class="hero-subtitle">Mistik Rehber</p>
+    <div class="hero-divider"><span></span><em>✦</em><span></span></div>
+    <p class="hero-desc">Aşk, karar, kariyer ve ruhsal rehberlik alanlarında sezgisel bir alan açın. Merak ettiğiniz başlığı seçin veya günün enerjisine kısa bir göz atın:</p>
+    <div class="hours-badge">Randevu Saatleri <strong>11:00 - 20:00</strong></div>
+
+    <div id="gunun-karti-alani">
+      <button id="kart-cek-btn" onclick="gununKartiniCek()">Günün Kartını Çek</button>
+      <div id="kart-sonuc" style="display: none;">
+        <div class="kart-cerceve"><span id="kart-ikon">🔮</span></div>
+        <h3 id="kart-isim">Kartın Adı</h3>
+        <p id="kart-mesaj">Burada kartın kısa ve pozitif mesajı yer alacak.</p>
+        <button id="kart-tekrar-btn" onclick="gununKartiniCek()">Tekrar Çek</button>
+      </div>
+    </div>
+
+    <div class="quick-nav">
+      <div class="qn-card" onclick="showPage('anlamlar')"><span class="qn-icon">🔮</span><span class="qn-label">Kart Anlamları</span></div>
+      <div class="qn-card" onclick="showPage('acilimlar')"><span class="qn-icon">✦</span><span class="qn-label">Açılımlar</span></div>
+      <div class="qn-card" onclick="showPage('temizleme')"><span class="qn-icon">🔥</span><span class="qn-label">Temizleme</span></div>
+      <div class="qn-card" onclick="showPage('saklama')"><span class="qn-icon">🌿</span><span class="qn-label">Saklama</span></div>
+      <div class="qn-card" onclick="showPage('enerjilendirme')"><span class="qn-icon">✨</span><span class="qn-label">Enerjilendirme</span></div>
+      <div class="qn-card" onclick="showPage('karistirma')"><span class="qn-icon">🃏</span><span class="qn-label">Karıştırma</span></div>
+      <div class="qn-card" onclick="showPage('burclar')"><span class="qn-icon">♈</span><span class="qn-label">Burçlar</span></div>
+      <div class="qn-card" onclick="showPage('ay')"><span class="qn-icon">🌕</span><span class="qn-label">Ay Fazları</span></div>
+    </div>
+  </div>
+  <footer><span>✦ Tarotsias</span><p>Kartlarınıza gösterdiğiniz özen, evrenden alacağınız rehberliği derinleştirir.</p><a class="footer-social" href="https://www.instagram.com/maneviyateczanesi/?hl=tr" target="_blank" rel="noopener noreferrer"><span class="instagram-link"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="2.8" width="18.4" height="18.4" rx="5.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.3" cy="6.7" r="0.8" fill="currentColor" stroke="none"></circle></svg></span>Instagram</a></footer>
+</div>
+
+<div class="page" id="page-anlamlar">
+  <div class="page-hero">
+    <span class="page-icon">🔮</span>
+    <p class="page-label">Semboller</p>
+    <h2 class="page-title">Kart Anlamları</h2>
+    <p class="page-intro">Her kart, danışanın içinde bulunduğu döneme farklı bir ışık düşürür. Buradaki anlamlar, seanslarda ortaya çıkabilecek ana temalara kısa bir bakış sunar.</p>
+  </div>
+  <div class="content-body">
+    <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button>
+    <p class="section-heading">Büyük Arkana</p>
+    <h3 class="sub-title">Ruhsal Dönüm Noktaları</h3>
+    <div class="tips-grid">
+      <div class="tip-card"><span class="t-icon">🌱</span><h4>Deli</h4><p>Yeni başlangıç, cesaret ve bilinmeyene güvenle adım atma.</p></div>
+      <div class="tip-card"><span class="t-icon">🪄</span><h4>Sihirbaz</h4><p>Niyeti gerçeğe dönüştürme, yetenek ve kişisel güç.</p></div>
+      <div class="tip-card"><span class="t-icon">🌙</span><h4>Büyük Rahibe</h4><p>Sezgi, sırlar, iç bilgelik ve görünmeyeni hissetme.</p></div>
+      <div class="tip-card"><span class="t-icon">🌿</span><h4>İmparatoriçe</h4><p>Bereket, üretkenlik, bakım, aşk ve büyüme enerjisi.</p></div>
+      <div class="tip-card"><span class="t-icon">👑</span><h4>İmparator</h4><p>Düzen, otorite, sınır, güven ve sağlam yapı kurma.</p></div>
+      <div class="tip-card"><span class="t-icon">🕯️</span><h4>Aziz</h4><p>İnanç, gelenek, rehberlik ve ruhsal değerlerle hizalanma.</p></div>
+      <div class="tip-card"><span class="t-icon">💞</span><h4>Aşıklar</h4><p>Seçim, uyum, kalp bağı ve ilişki dinamikleri.</p></div>
+      <div class="tip-card"><span class="t-icon">🏹</span><h4>Savaş Arabası</h4><p>İlerleme, irade, kontrol ve hedefe odaklanma.</p></div>
+      <div class="tip-card"><span class="t-icon">🦁</span><h4>Güç</h4><p>Sabır, öz güven, şefkatli cesaret ve içsel dayanıklılık.</p></div>
+      <div class="tip-card"><span class="t-icon">🕯️</span><h4>Ermiş</h4><p>İçe dönüş, yalnızlıkta bilgelik ve ruhsal netlik arayışı.</p></div>
+      <div class="tip-card"><span class="t-icon">🔄</span><h4>Kader Çarkı</h4><p>Döngü değişimi, fırsat, zamanlama ve akışa teslimiyet.</p></div>
+      <div class="tip-card"><span class="t-icon">⚖️</span><h4>Adalet</h4><p>Denge, hakikat, karar, sonuç ve sorumluluk alma.</p></div>
+      <div class="tip-card"><span class="t-icon">🌌</span><h4>Asılan Adam</h4><p>Bekleyiş, teslimiyet, farklı bakış açısı ve içsel çözülme.</p></div>
+      <div class="tip-card"><span class="t-icon">🦋</span><h4>Ölüm</h4><p>Kapanış, dönüşüm, bırakma ve yeni bir evreye geçiş.</p></div>
+      <div class="tip-card"><span class="t-icon">🌗</span><h4>Denge</h4><p>Uyum, sabır, şifa, ölçülülük ve orta yolu bulma.</p></div>
+      <div class="tip-card"><span class="t-icon">⛓️</span><h4>Şeytan</h4><p>Bağımlılıklar, gölge taraf, takıntı ve özgürleşme ihtiyacı.</p></div>
+      <div class="tip-card"><span class="t-icon">⚡</span><h4>Kule</h4><p>Ani farkındalık, yıkılan yanılsama ve gerçeğin ortaya çıkışı.</p></div>
+      <div class="tip-card"><span class="t-icon">✨</span><h4>Yıldız</h4><p>Umut, şifa, ilham, korunma ve ruhsal yenilenme.</p></div>
+      <div class="tip-card"><span class="t-icon">🌙</span><h4>Ay</h4><p>Belirsizlik, rüyalar, sezgi, korkular ve bilinçaltı.</p></div>
+      <div class="tip-card"><span class="t-icon">☀️</span><h4>Güneş</h4><p>Netlik, neşe, başarı, görünürlük ve içsel canlılık.</p></div>
+      <div class="tip-card"><span class="t-icon">📯</span><h4>Mahkeme</h4><p>Uyanış, çağrı, hesaplaşma ve geçmişten özgürleşme.</p></div>
+      <div class="tip-card"><span class="t-icon">🌍</span><h4>Dünya</h4><p>Tamamlanma, bütünlük, başarı ve yeni döngüye hazır oluş.</p></div>
+    </div>
+    <div class="gold-rule"></div>
+    <p class="section-heading">Asalar</p>
+    <h3 class="sub-title">Ateş, İlham ve Hareket</h3>
+    <div class="tips-grid">
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Ası</h4><p>Yeni ilham, kıvılcım, cesur başlangıç ve yaşam enerjisi.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa İkilisi</h4><p>Planlama, ufka bakma, seçenekleri tartma ve yön belirleme.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Üçlüsü</h4><p>Genişleme, beklenen sonuçlar, uzak hedefler ve vizyon.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Dörtlüsü</h4><p>Kutlama, yuva, güvenli alan ve emeklerin keyfini çıkarma.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Beşlisi</h4><p>Rekabet, fikir çatışması, hareketli enerji ve kendini gösterme.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Altılısı</h4><p>Takdir, görünür başarı, özgüven ve destek görme.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Yedilisi</h4><p>Sınır koruma, direnç, hak edilen yeri savunma.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Sekizlisi</h4><p>Hızlı gelişmeler, haber, akışın hızlanması ve hareket.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Dokuzlusu</h4><p>Yorgun ama dirençli duruş, son eşik ve korunma ihtiyacı.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Onlusu</h4><p>Yük, sorumluluk, fazla emek ve paylaşılması gereken ağırlık.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Prensi</h4><p>Merak, haber, hevesli başlangıç ve keşfetme isteği.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Şövalyesi</h4><p>Atılım, tutku, cesaret ve hızlı ama düşünülmesi gereken hareket.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Kraliçesi</h4><p>Çekim, özgüven, yaratıcı güç ve sıcak liderlik.</p></div>
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Asa Kralı</h4><p>Vizyon, liderlik, girişim ve ilham veren kararlılık.</p></div>
+    </div>
+    <div class="gold-rule"></div>
+    <p class="section-heading">Kupalar</p>
+    <h3 class="sub-title">Duygular, Aşk ve Sezgi</h3>
+    <div class="tips-grid">
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Ası</h4><p>Yeni duygu, aşk, şifa, kalbin açılması ve içsel yenilenme.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa İkilisi</h4><p>Karşılıklı sevgi, uyum, anlaşma ve kalpten bağ.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Üçlüsü</h4><p>Dostluk, kutlama, paylaşım ve sosyal destek.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Dörtlüsü</h4><p>İçe kapanma, duygusal durgunluk ve fark edilmeyen fırsat.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Beşlisi</h4><p>Hayal kırıklığı, yas, kayıp hissi ve kalan değeri görme.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Altılısı</h4><p>Geçmiş, nostalji, masumiyet ve eski bağların etkisi.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Yedilisi</h4><p>Hayaller, seçenekler, kararsızlık ve netleşme ihtiyacı.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Sekizlisi</h4><p>Arkada bırakma, ruhsal arayış ve kalbin daha fazlasını istemesi.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Dokuzlusu</h4><p>Dilek, tatmin, keyif ve kalpten gelen küçük mutluluklar.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Onlusu</h4><p>Aile, huzur, duygusal tamamlanma ve kalıcı mutluluk.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Prensi</h4><p>Duygusal haber, hassasiyet, romantik yaklaşım ve içtenlik.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Şövalyesi</h4><p>Teklif, romantizm, idealizm ve kalbin peşinden gitme.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Kraliçesi</h4><p>Şefkat, sezgi, duygusal derinlik ve iyileştirici enerji.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Kupa Kralı</h4><p>Duygusal olgunluk, sakinlik, anlayış ve güven veren sevgi.</p></div>
+    </div>
+    <div class="gold-rule"></div>
+    <p class="section-heading">Kılıçlar</p>
+    <h3 class="sub-title">Zihin, Karar ve İletişim</h3>
+    <div class="tips-grid">
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Ası</h4><p>Netlik, gerçek, zihinsel berraklık ve kesin karar.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç İkilisi</h4><p>Kararsızlık, iki seçenek, bekleme ve içsel denge arayışı.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Üçlüsü</h4><p>Kalp kırıklığı, gerçeklerle yüzleşme ve duygusal arınma.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Dörtlüsü</h4><p>Dinlenme, geri çekilme, zihni toparlama ve iyileşme.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Beşlisi</h4><p>Gerilim, haklı çıkma savaşı, ego ve yıpratıcı tartışmalar.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Altılısı</h4><p>Sakin sulara geçiş, uzaklaşma, iyileşme ve yeni rota.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Yedilisi</h4><p>Gizlilik, strateji, kaçınma ve dikkat isteyen durumlar.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Sekizlisi</h4><p>Zihinsel sıkışma, korku, sınırlı hissetme ve çıkış yolu arama.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Dokuzlusu</h4><p>Kaygı, uykusuz düşünceler, pişmanlık ve zihinsel yük.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Onlusu</h4><p>Bitmiş bir döngü, tükeniş, kabullenme ve yeni başlangıca hazırlık.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Prensi</h4><p>Merak, haber, gözlem, hızlı düşünce ve keskin iletişim.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Şövalyesi</h4><p>Hızlı karar, aceleci iletişim, mücadele ve zihinsel atak.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Kraliçesi</h4><p>Net sınırlar, dürüstlük, sezgisel zeka ve bağımsız duruş.</p></div>
+      <div class="tip-card"><span class="t-icon">⚔️</span><h4>Kılıç Kralı</h4><p>Akıl, adalet, strateji, olgun karar ve objektif bakış.</p></div>
+    </div>
+    <div class="gold-rule"></div>
+    <p class="section-heading">Tılsımlar</p>
+    <h3 class="sub-title">Para, Emek ve Somut Dünya</h3>
+    <div class="tips-grid">
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Ası</h4><p>Yeni fırsat, para, iş, beden ve somut başlangıç.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım İkilisi</h4><p>Denge kurma, iki işi yürütme, esneklik ve günlük akış.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Üçlüsü</h4><p>İş birliği, ustalık, emek ve birlikte inşa etme.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Dörtlüsü</h4><p>Tutunma, güvenlik ihtiyacı, maddi kontrol ve sınırlar.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Beşlisi</h4><p>Eksiklik hissi, maddi kaygı, yalnızlık ve destek arayışı.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Altılısı</h4><p>Alışveriş dengesi, yardım, paylaşım ve karşılıklı destek.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Yedilisi</h4><p>Sabır, bekleme, yatırım, emeklerin büyümesini izleme.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Sekizlisi</h4><p>Çalışma, gelişim, beceri, düzenli emek ve uzmanlaşma.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Dokuzlusu</h4><p>Bağımsızlık, öz değer, konfor ve emeğin keyfini çıkarma.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Onlusu</h4><p>Aile, miras, bolluk, köklenme ve uzun vadeli güven.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Prensi</h4><p>Yeni öğrenme, somut haber, sabırlı başlangıç ve pratik adım.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Şövalyesi</h4><p>Güvenilir ilerleme, sabır, sorumluluk ve istikrarlı emek.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Kraliçesi</h4><p>Bereket, bakım, ev, beden, güven ve sıcak pratik destek.</p></div>
+      <div class="tip-card"><span class="t-icon">💰</span><h4>Tılsım Kralı</h4><p>Maddi ustalık, güven, liderlik, bolluk ve sağlam temel.</p></div>
+    </div>
+    <div class="info-box"><strong>Genel Not</strong> Aynı kart her danışanda aynı kapıyı açmayabilir. Kartın mesajı, sorunun niyeti, kişinin enerjisi ve seansın genel akışıyla birlikte anlam kazanır.</div>
+  </div>
+  <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p><a class="footer-social" href="https://www.instagram.com/maneviyateczanesi/?hl=tr" target="_blank" rel="noopener noreferrer"><span class="instagram-link"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="2.8" width="18.4" height="18.4" rx="5.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.3" cy="6.7" r="0.8" fill="currentColor" stroke="none"></circle></svg></span>Instagram</a></footer>
+</div>
+
+<div class="page" id="page-acilimlar">
+  <div class="page-hero">
+    <span class="page-icon">✦</span>
+    <p class="page-label">Seanslar</p>
+    <h2 class="page-title">Açılımlar</h2>
+    <p class="page-intro">Her açılım, farklı bir niyete alan açar. Aşk, karar, kariyer ya da ruhsal yön arayışında seansın yapısı sorunun derinliğine göre şekillenir.</p>
+  </div>
+  <div class="content-body">
+    <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button>
+    <p class="section-heading">Seçenekler</p>
+    <h3 class="sub-title">Danışanlar İçin Açılım Türleri</h3>
+    <ul class="step-list">
+      <li class="step-item"><div class="step-num">1</div><div class="step-content"><h3>Günün Enerjisi</h3><p>Kısa, sade ve odaklı bir rehberlik isteyenler için uygundur. İçinde bulunulan güne dair ana titreşimi gösterir.</p></div></li>
+      <li class="step-item"><div class="step-num">3</div><div class="step-content"><h3>Aşk ve İlişki Açılımı</h3><p>İlişkinin mevcut enerjisini, karşılıklı duyguları ve olası akışı daha görünür hale getirir.</p></div></li>
+      <li class="step-item"><div class="step-num">5</div><div class="step-content"><h3>Karar ve Yol Ayrımı</h3><p>İki seçenek arasında kalanlar için destekleyici ve dikkat edilmesi gereken noktaları ortaya çıkarır.</p></div></li>
+      <li class="step-item"><div class="step-num">7</div><div class="step-content"><h3>Kariyer ve Para Akışı</h3><p>İş, fırsat, maddi güvenlik ve emek verilen konulardaki genel enerjiyi okumaya yardımcı olur.</p></div></li>
+      <li class="step-item"><div class="step-num">✦</div><div class="step-content"><h3>Ruhsal Rehberlik</h3><p>İçsel yön, tekrar eden döngüler ve kişinin kendi enerjisiyle bağlantısını güçlendiren daha derin bir açılımdır.</p></div></li>
+    </ul>
+    <div class="info-box"><strong>Genel Not</strong> Açılımlar kesin hüküm vermek için değil, mevcut enerjiyi daha berrak görmek ve kişinin kendi kararlarına içsel bir alan açmak için yapılır.</div>
+  </div>
+  <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p><a class="footer-social" href="https://www.instagram.com/maneviyateczanesi/?hl=tr" target="_blank" rel="noopener noreferrer"><span class="instagram-link"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="2.8" width="18.4" height="18.4" rx="5.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.3" cy="6.7" r="0.8" fill="currentColor" stroke="none"></circle></svg></span>Instagram</a></footer>
+</div>
+
+<div class="page" id="page-temizleme">
+  <div class="page-hero"><span class="page-icon">🔥</span><p class="page-label">I. Bölüm</p><h2 class="page-title">Temizleme</h2><p class="page-intro">Tarot kartları zamanla çevresel enerjiyi, duyguları ve düşünceleri emer. Düzenli temizlik onları taze ve güçlü tutar.</p></div>
+  <div class="content-body">
+    <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button>
+    <p class="section-heading">Yöntemler</p>
+    <h3 class="sub-title">Enerjetik Temizleme Ritüelleri</h3>
+    <ul class="step-list">
+      <li class="step-item"><div class="step-num">I</div><div class="step-content"><h3>Tütsü & Duman (Smudging)</h3><p>Adaçayı, palo santo veya sandal ağacı tütsüsü yakın. Dumanı destenizdeki her kartın üzerinden nazikçe geçirin. Duman negatif enerjiyi dağıtarak boşluğu arındırır. Bu ritüeli ayda en az bir kez tekrarlayın.</p></div></li>
+      <li class="step-item"><div class="step-num">II</div><div class="step-content"><h3>Üfleme Ritüeli</h3><p>Derin bir nefes alın, kartlara ya da destenizdeki boşluğa hafifçe üfleyin. Bu kadim yöntemle kendi nefesinizin enerjisini kartlara aktarır, yabancı enerjileri dağıtırsınız. Özellikle başkası elinize aldıktan sonra etkilidir.</p></div></li>
+      <li class="step-item"><div class="step-num">III</div><div class="step-content"><h3>Kristal Çemberi</h3><p>Destinizin etrafına kuvars, ametist veya siyah turmalin yerleştirin. Kartları gece boyunca bu çemberin içinde bırakın. Kristaller enerjetik yükü emerek kartlarınızı sıfırlar ve koruma altına alır.</p></div></li>
+      <li class="step-item"><div class="step-num">IV</div><div class="step-content"><h3>Selenite ile Temizleme</h3><p>Selenite hem arındırıcı hem de şarj edicidir ve kendisi temizlenmez. Destenizdeki kartları birkaç dakika selenite levhası üzerine bırakın ya da levhayı kartların üzerinden yavaşça kaydırın.</p></div></li>
+      <li class="step-item"><div class="step-num">V</div><div class="step-content"><h3>Ses Titreşimi</h3><p>Ses kasesi, çan veya yumuşak frekanslar seans alanının enerjisini sakinleştirir. Özellikle yoğun duyguların ardından ortamı yeniden dengelemek için tercih edilir.</p></div></li>
+    </ul>
+    <div class="info-box"><strong>Genel Not</strong> Arınma ritüelleri, seansın daha sakin ve odaklı hissedilmesine yardımcı olur. Buradaki öneriler kesin kurallar değil, enerjiyi dengeleyen yumuşak hatırlatmalardır.</div>
+    <div class="gold-rule"></div>
+    <p class="section-heading">Takvim</p>
+    <h3 class="sub-title">Ne Sıklıkla Temizlemeli?</h3>
+    <div class="tips-grid">
+      <div class="tip-card"><span class="t-icon">📅</span><h4>Seans Öncesi</h4><p>Kısa bir sessizlik, net bir niyet ve sakin bir ortam; alınan mesajların daha berrak hissedilmesini destekler.</p></div>
+      <div class="tip-card"><span class="t-icon">🌙</span><h4>Yoğun Dönemlerde</h4><p>Zihin karışık olduğunda tek bir konuya odaklanmak, seansın daha dengeli ilerlemesine yardımcı olur.</p></div>
+      <div class="tip-card"><span class="t-icon">🌑</span><h4>Yeni Başlangıçlarda</h4><p>Yeni ay dönemleri niyet, kapanış ve taze başlangıç temaları için güçlü bir sembolik alan sunar.</p></div>
+    </div>
+  </div>
+  <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p><a class="footer-social" href="https://www.instagram.com/maneviyateczanesi/?hl=tr" target="_blank" rel="noopener noreferrer"><span class="instagram-link"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.8" y="2.8" width="18.4" height="18.4" rx="5.2"></rect><circle cx="12" cy="12" r="4.1"></circle><circle cx="17.3" cy="6.7" r="0.8" fill="currentColor" stroke="none"></circle></svg></span>Instagram</a></footer>
+</div>
+
+<div class="page" id="page-saklama"> <div class="page-hero"> <span class="page-icon">🌿</span> <p class="page-label">II. Bölüm</p> <h2 class="page-title">Saklama</h2> <p class="page-intro">Kartlarınızı nasıl sakladığınız, onların enerjetik kalitesini ve fiziksel ömrünü doğrudan etkiler.</p> </div> <div class="content-body"> <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button> <p class="section-heading">Malzeme</p> <h3 class="sub-title">En İyi Saklama Yöntemleri</h3> <ul class="step-list"> <li class="step-item"> <div class="step-num">🌿</div> <div class="step-content"> <h3>Doğal Kumaşa Sarma</h3> <p>İpek, kadife ya da pamuklu bir bezle sarın. İpek enerjiyi ne tutar ne yayar, nötr bir koruma sağlar. Sentetik malzemeler statik elektrik oluşturarak enerji akışını bozabilir.</p> </div> </li> <li class="step-item"> <div class="step-num">📦</div> <div class="step-content"> <h3>Ahşap Kutu</h3> <p>Ahşap doğal ve toprağa bağlı bir enerji taşır. Sandal ağacı, sedir ya da meşe kutular özellikle tercih edilir. Ham ya da doğal yağlanmış ahşap, boyalı ya da vernikli kutudan daha iyidir.</p> </div> </li> <li class="step-item"> <div class="step-num">💎</div> <div class="step-content"> <h3>Kristal Eşlikçi</h3> <p>Deste kutunuzun içine küçük bir ametist ya da siyah turmalin yerleştirin. Ametist sezgiyi güçlendirir, siyah turmalin dışarıdan gelecek enerjilere karşı korur.</p> </div> </li> <li class="step-item"> <div class="step-num">🌾</div> <div class="step-content"> <h3>Koruyucu Bitkiler</h3> <p>Destelerinizin yanına küçük bir lavanta dalı, kuru biberiye ya da defne yaprağı koyun. Bu bitkiler hem koruyucu hem arındırıcı enerjileri sayesinde negatif etkilerden uzak tutar.</p> </div> </li> </ul> <div class="info-box"> <strong>İdeal Koşullar</strong> Kartlarınızı 18-24°C arası, kuru bir ortamda saklayın. Doğrudan güneş ışığından ve nemden uzak tutun. Fotoğraf rengi solmasını, nem ise kıvrılmayı ve küfü tetikler. </div> <div class="gold-rule"></div> <p class="section-heading">Organizasyon</p> <h3 class="sub-title">Birden Fazla Deste Sahipseniz</h3> <div class="tips-grid"> <div class="tip-card"> <span class="t-icon">🗂️</span> <h4>Ayrı Ayrı Saklayın</h4> <p>Her deste kendi enerjisini muhafaza etmeli. Farklı desteleri aynı kutuda birbirine karıştırmayın.</p> </div> <div class="tip-card"> <span class="t-icon">🧭</span> <h4>Yön Seçin</h4> <p>Mümkünse destenizi kuzey veya doğuya dönük yerleştirin. Yön enerjisi birçok gizem geleneğinde önem taşır.</p> </div> <div class="tip-card"> <span class="t-icon">🚫</span> <h4>Elektronikten Uzak</h4> <p>Telefon, bilgisayar veya TV yakınında saklamaktan kaçının. Elektromanyetik alanlar enerjetik bozulma yaratabilir.</p> </div> </div> </div> <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p></footer></div>
+<div class="page" id="page-enerjilendirme"> <div class="page-hero"> <span class="page-icon">✨</span> <p class="page-label">III. Bölüm</p> <h2 class="page-title">Enerjilendirme</h2> <p class="page-intro">Seans enerjisi; sakinlik, niyet ve güven hissiyle derinleşir. Bu bölüm, danışanların seansa daha dengeli hazırlanmasına yardımcı olacak genel başlıkları toplar.</p> </div> <div class="content-body"> <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button> <p class="section-heading">Hazırlık</p> <h3 class="sub-title">Seans Öncesi Enerji Alanı</h3> <ul class="step-list"> <li class="step-item"> <div class="step-num">🌕</div> <div class="step-content"> <h3>Niyetin Netleşmesi</h3> <p>Seansa gelmeden önce tek bir ana konu belirlemek, açılımın daha berrak ve odaklı ilerlemesine yardımcı olur.</p> </div> </li> <li class="step-item"> <div class="step-num">☀️</div> <div class="step-content"> <h3>Sakin Bir Zaman</h3> <p>Acele etmeden ayrılan kısa bir zaman aralığı, kişinin kendi iç sesini daha rahat duymasını destekler.</p> </div> </li> <li class="step-item"> <div class="step-num">💎</div> <div class="step-content"> <h3>Açık Kalp</h3> <p>Seansın amacı kesin cevap almak kadar, fark edilmeyen duyguları ve olasılıkları görünür kılmaktır.</p> </div> </li> <li class="step-item"> <div class="step-num">🌱</div> <div class="step-content"> <h3>Topraklanma</h3> <p>Birkaç derin nefes, bir bardak su veya kısa bir sessizlik; seans öncesi enerjiyi yumuşatır.</p> </div> </li> <li class="step-item"> <div class="step-num">🤲</div> <div class="step-content"> <h3>Güvenli Alan</h3> <p>Tarot danışmanlığı, yargısız bir dinleme ve semboller üzerinden içsel netlik bulma alanı olarak ilerler.</p> </div> </li> </ul> <div class="info-box"> <strong>✦ Genel Not</strong> En verimli seanslar, kişinin hem merakına hem de kendi karar gücüne saygı duyduğu bir yerden başlar. </div> </div> <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p></footer></div>
+<div class="page" id="page-karistirma"> <div class="page-hero"> <span class="page-icon">🃏</span> <p class="page-label">IV. Bölüm</p> <h2 class="page-title">Karıştırma</h2> <p class="page-intro">Kartları karıştırmak yalnızca fiziksel bir eylem değil, niyet ve odaklanma gerektiren kutsal bir andır.</p> </div> <div class="content-body"> <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button> <p class="section-heading">Teknikler</p> <h3 class="sub-title">Doğru Karıştırma Yöntemleri</h3> <ul class="step-list"> <li class="step-item"> <div class="step-num">I</div> <div class="step-content"> <h3>Overhand Karıştırma</h3> <p>Kartları bir elden diğerine aktararak karıştırma. Tarot için en yaygın ve güvenli yöntemdir. Kartlara zarar vermez, yavaş ve meditif bir tempo sağlar.</p> </div> </li> <li class="step-item"> <div class="step-num">II</div> <div class="step-content"> <h3>Hindu Karıştırma</h3> <p>Desteni bir elinizde tutun, diğer elinizle küçük gruplar halinde kartları araya yerleştirin. Ritüel açısından güçlü bir yöntemdir. Her yerleştirmede bilinçli bir niyetle hareket edin.</p> </div> </li> <li class="step-item"> <div class="step-num">III</div> <div class="step-content"> <h3>Yüzey Karıştırma</h3> <p>Kartları düz bir yüzeye yayın ve dairesel hareketlerle birbirine karıştırın. Bu yöntem sezgisel ve organik bir karıştırma sağlar; pek çok okuyucu bu sırada en güçlü bağı hisseder.</p> </div> </li> <li class="step-item"> <div class="step-num">⚠️</div> <div class="step-content"> <h3>Riffle Shuffle - Kaçının</h3> <p>Poker tarzı köprü karıştırma tarot kartlarına zarar verir. Kağıt bükülür, köşeler kırılır ve baskılar zamanla zedelenir. Bu yöntemi tarot desteleri için kullanmayın.</p> </div> </li> </ul> <div class="gold-rule"></div> <p class="section-heading">Ritüel</p> <h3 class="sub-title">Karıştırma Öncesi Hazırlık</h3> <div class="tips-grid"> <div class="tip-card"> <span class="t-icon">🧘</span> <h4>Nefes Alın</h4> <p>Üç derin nefes alın. Zihninizi gündelik düşüncelerden arındırın, sorunuza odaklanın.</p> </div> <div class="tip-card"> <span class="t-icon">💭</span> <h4>Niyet Belirleyin</h4> <p>Sorunuzu ya da niyetinizi karıştırma boyunca zihinsel olarak tekrarlayın veya sesli söyleyin.</p> </div> <div class="tip-card"> <span class="t-icon">🤚</span> <h4>Düşen Kartlar</h4> <p>Karıştırırken düşen kartları asla görmezden gelmeyin, bunlar genellikle en önemli mesajı taşır.</p> </div> <div class="tip-card"> <span class="t-icon">⏱️</span> <h4>Ne Kadar Karıştırmalı?</h4> <p>Saymayın. Bedeniniz sizi doğal bir dur noktasına taşır. Sayı değil, his rehberdir.</p> </div> </div> </div> <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p></footer></div>
+<div class="page" id="page-burclar">
+  <div class="page-hero">
+    <span class="page-icon">♈</span>
+    <p class="page-label">Astroloji</p>
+    <h2 class="page-title">Burçlar ve Tarot</h2>
+    <p class="page-intro">Tarot ve astroloji, semboller üzerinden aynı içsel dili farklı kapılardan anlatır. Burç enerjileri, açılımlarda kartların temasını daha kişisel ve sezgisel hale getirebilir.</p>
+  </div>
+  <div class="content-body">
+    <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button>
+    <p class="section-heading">Elementler</p>
+    <h3 class="sub-title">Burç Enerjilerinin Kartlara Yansıması</h3>
+    <div class="tips-grid">
+      <div class="tip-card"><span class="t-icon">🔥</span><h4>Ateş Burçları</h4><p>Koç, Aslan ve Yay enerjisi; Asalar serisiyle, cesaretle, hareketle ve tutkuyla bağlantılıdır.</p></div>
+      <div class="tip-card"><span class="t-icon">🌱</span><h4>Toprak Burçları</h4><p>Boğa, Başak ve Oğlak enerjisi; Tılsımlar serisiyle, güvenle, emekle ve somut sonuçlarla ilişkilidir.</p></div>
+      <div class="tip-card"><span class="t-icon">💨</span><h4>Hava Burçları</h4><p>İkizler, Terazi ve Kova enerjisi; Kılıçlar serisiyle, düşünceyle, iletişimle ve kararlarla görünür olur.</p></div>
+      <div class="tip-card"><span class="t-icon">💧</span><h4>Su Burçları</h4><p>Yengeç, Akrep ve Balık enerjisi; Kupalar serisiyle, duygularla, sezgiyle ve kalp bağlarıyla akar.</p></div>
+    </div>
+    <div class="gold-rule"></div>
+    <p class="section-heading">Sembolik Eşleşmeler</p>
+    <h3 class="sub-title">Bazı Kart ve Burç Bağları</h3>
+    <div class="moon-grid">
+      <div class="moon-card"><span class="m-glyph">♈</span><span class="m-name">Koç - İmparator</span><p>İrade, yön belirleme ve cesur başlangıç enerjisini temsil eder.</p></div>
+      <div class="moon-card"><span class="m-glyph">♉</span><span class="m-name">Boğa - Aziz</span><p>Güven, gelenek, değerler ve içsel istikrar temalarını öne çıkarır.</p></div>
+      <div class="moon-card"><span class="m-glyph">♊</span><span class="m-name">İkizler - Aşıklar</span><p>Seçimler, iletişim ve kalp-zihin dengesiyle bağlantılıdır.</p></div>
+      <div class="moon-card"><span class="m-glyph">♋</span><span class="m-name">Yengeç - Savaş Arabası</span><p>Duygusal yönü koruyarak ilerleme ve içsel kontrol enerjisini taşır.</p></div>
+      <div class="moon-card"><span class="m-glyph">♌</span><span class="m-name">Aslan - Güç</span><p>Kalpten gelen cesaret, özgüven ve yumuşak kuvveti anlatır.</p></div>
+      <div class="moon-card"><span class="m-glyph">♍</span><span class="m-name">Başak - Ermiş</span><p>İç gözlem, sadeleşme, analiz ve ruhsal olgunlaşma temasını güçlendirir.</p></div>
+      <div class="moon-card"><span class="m-glyph">♎</span><span class="m-name">Terazi - Adalet</span><p>Denge, hakikat, ilişki dinamikleri ve karar netliğiyle ilgilidir.</p></div>
+      <div class="moon-card"><span class="m-glyph">♏</span><span class="m-name">Akrep - Ölüm</span><p>Dönüşüm, kapanış, yeniden doğuş ve derin duygusal arınmayı sembolize eder.</p></div>
+      <div class="moon-card"><span class="m-glyph">♐</span><span class="m-name">Yay - Denge</span><p>İnanç, anlam arayışı, uyum ve ruhsal genişleme enerjisi taşır.</p></div>
+      <div class="moon-card"><span class="m-glyph">♑</span><span class="m-name">Oğlak - Şeytan</span><p>Bağlar, hırs, sorumluluk ve özgürleşilmesi gereken kalıpları görünür kılar.</p></div>
+      <div class="moon-card"><span class="m-glyph">♒</span><span class="m-name">Kova - Yıldız</span><p>Umut, ilham, gelecek vizyonu ve ruhsal yenilenmeyle bağlantılıdır.</p></div>
+      <div class="moon-card"><span class="m-glyph">♓</span><span class="m-name">Balık - Ay</span><p>Sezgi, rüyalar, belirsizlik ve bilinçaltının yumuşak sesini anlatır.</p></div>
+    </div>
+    <div class="info-box"><strong>Genel Not</strong> Burçlar ve tarot eşleşmeleri kesin etiketler değil, seansın sembolik katmanını zenginleştiren rehber işaretlerdir. Kişinin doğum haritası, sorusu ve o anki enerjisi birlikte değerlendirilir.</div>
+  </div>
+  <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p></footer>
+</div>
+<div class="page" id="page-ay"> <div class="page-hero"> <span class="page-icon">🌕</span> <p class="page-label">V. Bölüm</p> <h2 class="page-title">Ay Fazları</h2> <p class="page-intro">Ay döngüsü; niyet, kapanış, netleşme ve içe dönüş temalarını sembolik olarak güçlendirir.</p> </div> <div class="content-body"> <button class="back-btn" onclick="showPage('anasayfa')">← Ana Sayfa</button> <p class="section-heading">Döngü</p> <h3 class="sub-title">Ay Fazlarının Genel Enerjisi</h3> <div class="moon-grid"> <div class="moon-card"> <span class="m-glyph">🌑</span> <span class="m-name">Yeni Ay</span> <p>Yeni başlangıçlar, niyetler ve içsel bir sayfa açma enerjisini taşır.</p> </div> <div class="moon-card"> <span class="m-glyph">🌒</span> <span class="m-name">Hilal</span> <p>Yavaşça güçlenen umut, motivasyon ve ilk adım enerjisini temsil eder.</p> </div> <div class="moon-card"> <span class="m-glyph">🌓</span> <span class="m-name">İlk Dördün</span> <p>Karar alma, yön belirleme ve içsel cesaretin yükseldiği bir eşiktir.</p> </div> <div class="moon-card"> <span class="m-glyph">🌔</span> <span class="m-name">Şişen Ay</span> <p>Emek verilen konuların görünür olmaya başladığı, sabır ve odak isteyen dönemdir.</p> </div> <div class="moon-card"> <span class="m-glyph">🌕</span> <span class="m-name">Dolunay</span> <p>Netleşme, görünürlük, tamamlanma ve güçlü farkındalık enerjisi taşır.</p> </div> <div class="moon-card"> <span class="m-glyph">🌖</span> <span class="m-name">Azalan Ay</span> <p>Bırakma, sadeleşme ve gereksiz yüklerden arınma temalarını destekler.</p> </div> <div class="moon-card"> <span class="m-glyph">🌗</span> <span class="m-name">Son Dördün</span> <p>Geçmişi değerlendirme, kapanış yapma ve yeni döngüye hazırlanma alanıdır.</p> </div> <div class="moon-card"> <span class="m-glyph">🌘</span> <span class="m-name">Karanlık Ay</span> <p>Dinlenme, içe çekilme ve sezgileri sessizlikte duyma zamanıdır.</p> </div> </div> <div class="info-box" style="margin-top: 2.5rem;"> <strong>🌙 Genel Not</strong> Ay fazları seansların atmosferini destekleyen sembolik zamanlardır. En doğru an çoğu zaman kişinin içinden gelen hazır oluş hissiyle belirir. </div> </div> <footer><span>✦ Tarotsias</span><p>Kadim gizem geleneklerinden derlenen bir rehber</p></footer></div>
+
+<script>
+  const kartlar = [
+    { ad: "Güneş", ikon: "☀️", mesaj: "Bugün neşe, başarı ve aydınlanma enerjisi seninle. İçindeki potansiyeli ortaya çıkar." },
+    { ad: "Yıldız", ikon: "✨", mesaj: "Umut ve ilham dolu bir gün. Hayallerine giden yolda evren sana rehberlik ediyor." },
+    { ad: "Kupa Ası", ikon: "💧", mesaj: "Duygusal bir yenilenme ve yeni başlangıçlar seni bekliyor. Kalbini sevgiye aç." },
+    { ad: "Büyük Rahibe", ikon: "🌙", mesaj: "Sezgilerine güven. Bugün cevaplar dışarıda değil, kendi içinde saklı." },
+    { ad: "İmparatoriçe", ikon: "🌿", mesaj: "Yaratıcılık ve bereket enerjisi hakim. Projelerine ve ilişkilerine özen göster." },
+    { ad: "Asa Şövalyesi", ikon: "🔥", mesaj: "Cesur adımlar atma zamanı. Enerjini hedeflerine yönlendir, macera seni çağırıyor." },
+    { ad: "Tılsım Onlusu", ikon: "💰", mesaj: "Emeklerinin karşılığını alacağın, maddi ve manevi bolluk içinde olacağın bir gün." },
+    { ad: "Sihirbaz", ikon: "🪄", mesaj: "Bugün niyetini somutlaştırma gücün yüksek. Elindeki kaynakları fark et ve ilk adımı at." },
+    { ad: "Aşıklar", ikon: "💞", mesaj: "Kalbin ve zihnin arasında uyum arayan bir enerji var. Seçimlerini sevgiyle ama bilinçle yap." },
+    { ad: "Savaş Arabası", ikon: "🏹", mesaj: "Dağınık enerjini tek bir yöne topladığında ilerleme hızlanacak. Kontrol sende." },
+    { ad: "Güç", ikon: "🦁", mesaj: "Bugün yumuşak ama kararlı duruşun sana kapı açar. Sabır, en büyük kuvvetin olabilir." },
+    { ad: "Ermiş", ikon: "🕯️", mesaj: "Cevapları dış seslerde değil, sessizliğin içinde ara. İç rehberliğin bugün daha net konuşuyor." },
+    { ad: "Kader Çarkı", ikon: "🔄", mesaj: "Döngüler değişiyor. Akışa direnmek yerine gelen dönüşümün sana ne öğrettiğine bak." },
+    { ad: "Adalet", ikon: "⚖️", mesaj: "Denge, dürüstlük ve netlik ön planda. Bugün kararlarını içsel terazinden geçir." },
+    { ad: "Asılan Adam", ikon: "🌌", mesaj: "Bir konuyu zorlamak yerine farklı açıdan görmeyi dene. Bekleyiş de bir rehberliktir." },
+    { ad: "Ölüm", ikon: "🦋", mesaj: "Bir dönemin kapanışı yeni bir alan açıyor. Bıraktığın şey, hafifliğe dönüşebilir." },
+    { ad: "Denge", ikon: "🌗", mesaj: "Aşırılıklardan uzaklaşıp orta yolu bulma zamanı. Küçük düzenlemeler büyük ferahlık getirebilir." },
+    { ad: "Kule", ikon: "⚡", mesaj: "Sarsılan şey seni özgürleştirmek için yerinden oynuyor olabilir. Gerçeğe alan aç." },
+    { ad: "Dünya", ikon: "🌍", mesaj: "Tamamlanma ve bütünlenme enerjisi var. Emek verdiğin bir konuda sonuç görmeye yaklaşabilirsin." },
+    { ad: "Kupa İkilisi", ikon: "🤝", mesaj: "Karşılıklı anlayış ve duygusal uyum öne çıkıyor. Kalpten gelen bir konuşma şifa olabilir." },
+    { ad: "Kupa Altılısı", ikon: "🌸", mesaj: "Geçmişten gelen bir hatıra veya duygu bugün yumuşak bir farkındalık getirebilir." },
+    { ad: "Kupa Dokuzlusu", ikon: "🎁", mesaj: "Kalbini mutlu eden küçük bir dilek görünür olabilir. Şükran enerjisi bolluğu büyütür." },
+    { ad: "Kılıç Ası", ikon: "🗡️", mesaj: "Zihinsel netlik geliyor. Bugün karmaşayı kesip gerçeği sade şekilde görebilirsin." },
+    { ad: "Kılıç Altılısı", ikon: "🌊", mesaj: "Zor bir enerjiden daha sakin bir alana geçiş var. Kendine iyileşmek için izin ver." },
+    { ad: "Kılıç Kraliçesi", ikon: "👁️", mesaj: "Sezgini aklınla birleştir. Net sınırlar bugün seni güçlendirir." },
+    { ad: "Asa Ası", ikon: "🔥", mesaj: "Yeni bir ilham kıvılcımı doğuyor. Heyecan duyduğun şeyi küçümseme, orada yaşam enerjisi var." },
+    { ad: "Asa Üçlüsü", ikon: "⛵", mesaj: "Ufuk genişliyor. Attığın adımların etkisini görmek için biraz sabır ve güven gerekiyor." },
+    { ad: "Asa Altılısı", ikon: "🏆", mesaj: "Görünür olma ve takdir edilme enerjisi var. Emeğini saklama, ışığını paylaş." },
+    { ad: "Tılsım Ası", ikon: "🌱", mesaj: "Somut bir fırsat filizleniyor. Küçük ama sağlam bir başlangıç uzun vadede büyüyebilir." },
+    { ad: "Tılsım Üçlüsü", ikon: "🧩", mesaj: "İş birliği, emek ve düzen bugün destekleyici. Yardım istemek ilerlemeyi hızlandırabilir." },
+    { ad: "Tılsım Dokuzlusu", ikon: "🍇", mesaj: "Kendi değerini görme zamanı. Bağımsızlık, zarafet ve özsaygı enerjisi seninle." }
+  ];
+
+  function gununKartiniCek() {
+    const btn = document.getElementById('kart-cek-btn');
+    const sonucAlani = document.getElementById('kart-sonuc');
+    const secilenKart = kartlar[Math.floor(Math.random() * kartlar.length)];
+
+    document.getElementById('kart-ikon').innerText = secilenKart.ikon;
+    document.getElementById('kart-isim').innerText = secilenKart.ad;
+    document.getElementById('kart-mesaj').innerText = secilenKart.mesaj;
+
+    btn.style.display = 'none';
+    sonucAlani.style.display = 'block';
+    sonucAlani.classList.remove('revealed');
+    void sonucAlani.offsetWidth;
+    sonucAlani.classList.add('revealed');
+  }
+
+  function closeMobileMenu() {
+    const navLinks = document.getElementById('nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    navLinks.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function showPage(id, element) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + id);
+
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+    const activeButton = element || document.querySelector(`.nav-links button[data-page="${id}"]`);
+    if (activeButton) {
+      activeButton.classList.add('active');
+    }
+
+    if (id === 'anasayfa') {
+      document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+    }
+
+    closeMobileMenu();
+  }
+
+  document.querySelector('.nav-logo').addEventListener('click', () => showPage('anasayfa'));
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    const navLinks = document.getElementById('nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>
+</body>
+</html>
