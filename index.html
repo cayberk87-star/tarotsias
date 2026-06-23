@@ -280,13 +280,32 @@
     border-radius: 4px;
     background: rgba(201,168,76,0.06);
     padding: 0.7rem 1rem;
-    margin-bottom: 2.2rem;
+    margin-bottom: 0.7rem;
     box-shadow: 0 0 18px rgba(201,168,76,0.08);
   }
 
   .hours-badge strong {
     color: var(--gold-light);
     font-weight: 600;
+  }
+
+  .contact-note {
+    font-size: 0.98rem;
+    color: var(--cream-muted);
+    font-style: italic;
+    margin-bottom: 2.2rem;
+  }
+
+  .contact-note a {
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(240,212,122,0.35);
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .contact-note a:hover {
+    color: var(--gold-pale);
+    border-color: rgba(240,212,122,0.75);
   }
 
   #gunun-karti-alani {
@@ -480,6 +499,7 @@
     <div class="hero-divider"><span></span><em>✦</em><span></span></div>
     <p class="hero-desc">Aşk, karar, kariyer ve ruhsal rehberlik alanlarında sezgisel bir alan açın. Merak ettiğiniz başlığı seçin veya günün enerjisine kısa bir göz atın:</p>
     <div class="hours-badge">Randevu Saatleri <strong>11:00 - 20:00</strong></div>
+    <p class="contact-note"><a href="https://www.instagram.com/tarotsias/" target="_blank" rel="noopener noreferrer">Instagram üzerinden</a> ulaşabilirsiniz.</p>
 
     <div id="gunun-karti-alani">
       <button id="kart-cek-btn" onclick="gununKartiniCek()">Günün Kartını Çek</button>
